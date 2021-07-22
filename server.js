@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express()
+const db = require("./models")
 
 
 const PORT = process.env.PORT || 8080
@@ -8,8 +9,10 @@ app.use(express.static("public"))
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 
+app.use(require("./routes/index"))
 
-
-app.listen(PORT, ()=> {
-    console.log(`app listening on http//localhost:${PORT}`)
+db.sequelize.sync({forse: false}).then(function(){
+    app.listen(PORT, ()=> {
+        console.log(`app listening on http//localhost:${PORT}`)
+    })
 })
