@@ -1,22 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="style/stylesheet" href="./css/style.css">
-</head>
-<body>
-    
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+  <body>
+
+
+    <header id="header">
+
+
+    <nav id="navBar">
+        <div class="navBtParent">
+            <a href="/"><p>Home</p></a>
+
+        </div>
+        <div class="navBtParent">
+            <a href="/note"><p>Note</p></a>
+
+        </div>
+        <div class="navBtParent">
+            <a>Profile</a>
+
+        </div>
+
+    </nav>
+    </header>
+    <main id="mainHome">
+        
+    </main>
+
+
+
+
+
+
+
+
+
     <script src="./js/index.js"></script>
+
     <script>
-        (function() {
-          if("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("./service-worker.js")
-              .then(() => console.log("Service Worker registered successfully."))
-              .catch(error => console.log("Service Worker registration failed:", error));
-          }
-        })();
-        </script>
-</body>
+      (function () {
+        if ("serviceWorker" in navigator) {
+          navigator.serviceWorker
+            .register("./service-worker.js")
+            .then(() => console.log("Service Worker registered successfully."))
+            .catch((error) =>
+              console.log("Service Worker registration failed:", error)
+            );
+        }
+      })();
+    </script>
+  </body>
 </html>

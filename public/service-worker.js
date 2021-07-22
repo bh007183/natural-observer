@@ -1,4 +1,4 @@
-const { response } = require("express")
+
 
 const CACHE_NAME = "nature-v1"
 const FILES_TO_CACHE = [
@@ -7,7 +7,10 @@ const FILES_TO_CACHE = [
     "./profile.html",
     "./css/style.css",
     "./js/index.js",
-    "./js/ profile.js"
+    "./js/profile.js",
+    "./js/note.js",
+    "./note.html",
+    "./css/note.css"
 ]
 
 self.addEventListener("install", function(event){
@@ -38,6 +41,8 @@ self.addEventListener("activate", function(event){
 
         })
     )
+
+  return self.clients.claim();
 })
 
 self.addEventListener("fetch", function(event){
@@ -58,13 +63,23 @@ self.addEventListener("fetch", function(event){
         return
 
     }
+    
     event.respondWith(
-        fetch(event.request).catch(function(){
+        
+        fetch(event.request).catch(function(err){
+            
+            console.log(event.request)
             return caches.open(CACHE_NAME).then(response => {
-                if(response){
-                    return response
-                }else if (event.request.headers.get("accept").includes("text/html")){
-                    return chaches.match("/")
+                console.log(response)
+                // if(response){
+                //     console.log("line 75")
+                //     return response
+                // }else 
+                console.log(caches)
+                console.log(event.request.headers.get('accept'))
+                if(event.request.headers.get("accept").includes("text/html")){
+                    console.log(caches.match("/"))
+                    return caches.match("/")
                 }
             })
         })

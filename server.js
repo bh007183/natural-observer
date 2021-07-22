@@ -11,7 +11,7 @@ app.use(express.json())
 
 app.use(require("./routes/index"))
 
-db.sequelize.sync({forse: false}).then(function(){
+db.sequelize.sync({force: false}).then(function(){
     app.listen(PORT, ()=> {
         console.log(`app listening on http//localhost:${PORT}`)
     })

@@ -7,7 +7,6 @@ module.exports = function(sequelize, DataTypes){
         },
         title: {
             type: DataTypes.STRING,
-            unique: true,
         },
         observation: {
             type: DataTypes.STRING,

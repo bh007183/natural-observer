@@ -1,0 +1,43 @@
+#noteForm{
+    background-color: rgb(43, 37, 37);
+    width: 50%;
+    height: 60%;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+   
+}
+body{
+    background-color: grey;
+
+}
+textarea{
+    resize: none;
+    width: 90%;
+    
+}
+#inputParent{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+#noteStatus{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+#textareaParent{
+    width: 100%;
+    height: 70%;
+   
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+#submitParent{
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
