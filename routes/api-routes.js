@@ -2,8 +2,7 @@ const router = require("express").Router()
 const data = require("./test.json")
 const db = require("../models")
 
-router.route("/notes")
-.get(async (req, res)=> {
+router.get("/notese",async (req, res)=> {
     try{
         let data = await db.Note.findAll()
         res.status(200).json(data)
@@ -13,9 +12,10 @@ router.route("/notes")
     }
 
 })
-.post(async (req, res)=>{
+router.post("/notesepost", async (req, res)=>{
     try{
         await db.Note.create(req.body)
+        console.log("this is firing")
         res.status(200).json({success: true})
     }catch(err){
         console.log(err.errors)

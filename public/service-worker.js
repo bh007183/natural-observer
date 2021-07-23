@@ -53,17 +53,22 @@ self.addEventListener('fetch', event => {
     event.respondWith(
       caches
         .match(event.request)
-        .then(
-          cacheRes =>
-            cacheRes ||
-            fetch(event.request).then(fetchRes =>
-              caches.open(CACHE_NAME).then(cache => {
-                cache.put(event.request.url, fetchRes.clone());
-                // check cached items size
-               
-                return fetchRes;
-              })
-            )
+        .then(function(cacheRes){
+            if(cacheRes){
+                console.log(cacheRes)
+                return cacheRes
+            }else{
+                fetch(event.request).then(fetchRes =>
+                    caches.open(CACHE_NAME).then(cache => {
+                      cache.put(event.request.url, fetchRes.clone());
+                      // check cached items size
+                      console.log(fetchRes)
+                      return fetchRes;
+                    })
+                  )}
+
+            }
+
         )
         .catch(() => caches.match('/'))
     );

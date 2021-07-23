@@ -25,7 +25,7 @@ document
       observation: document.querySelector("#note").value,
     };
 
-    fetch("/api/notes", {
+    fetch("/api/notese", {
       method: "POST",
       body: JSON.stringify(obj),
       headers: {
@@ -33,7 +33,7 @@ document
       },
     })
       .then((res) => {
-          
+          console.log(res)
           if(!res.ok){
             let text = document.createTextNode(`There was an error with your request.`)
             const target = document.querySelector("#noteStatus")
