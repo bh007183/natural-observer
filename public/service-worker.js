@@ -3,14 +3,15 @@
 const CACHE_NAME = "nature-v1"
 const FILES_TO_CACHE = [
     "/",
-    "./index.html",
-    "./profile.html",
-    "./css/style.css",
-    "./js/index.js",
-    "./js/profile.js",
-    "./js/note.js",
-    "./note.html",
-    "./css/note.css"
+    
+    "/index.html",
+    "/profile.html",
+    "/css/style.css",
+    "/js/index.js",
+    "/js/profile.js",
+    "/js/note.js",
+    "/note.html",
+    "/css/note.css"
 ]
 
 self.addEventListener("install", function(event){
@@ -44,44 +45,27 @@ self.addEventListener("activate", function(event){
 
   return self.clients.claim();
 })
-
-self.addEventListener("fetch", function(event){
-    if(event.request.url.includes("/api/")){
-        event.respondWith(
-            caches.open(CACHE_NAME).then(cache => {
-                return fetch(event.request).then(response => {
-                    if(response.status === 200){
-                        cache.put(event.request.url, response.clone())
-                    }
-                    return response
-                })
-                .catch(err => {
-                    return cache.match(event.request)
-                })
-            }).catch(err => console.log(err))
-        )
-        return
-
-    }
-    
+self.addEventListener('fetch', event => {
+    // check if request is made by chrome extensions or web page
+    // if request is made for web page url must contains http.
+    if (!(event.request.url.indexOf('http') === 0)) return; // skip the request. if request is not made with http protocol
+  
     event.respondWith(
-        
-        fetch(event.request).catch(function(err){
-            
-            console.log(event.request)
-            return caches.open(CACHE_NAME).then(response => {
-                console.log(response)
-                // if(response){
-                //     console.log("line 75")
-                //     return response
-                // }else 
-                console.log(caches)
-                console.log(event.request.headers.get('accept'))
-                if(event.request.headers.get("accept").includes("text/html")){
-                    console.log(caches.match("/"))
-                    return caches.match("/")
-                }
-            })
-        })
-    )
-})
+      caches
+        .match(event.request)
+        .then(
+          cacheRes =>
+            cacheRes ||
+            fetch(event.request).then(fetchRes =>
+              caches.open(CACHE_NAME).then(cache => {
+                cache.put(event.request.url, fetchRes.clone());
+                // check cached items size
+               
+                return fetchRes;
+              })
+            )
+        )
+        .catch(() => caches.match('/'))
+    );
+  });
+

@@ -38,6 +38,7 @@ fetch("/api/notes")
         `
     })
 }).catch(err => {
+    console.log("this should fire index.js line 41")
     let action = db.transaction(["item"], "readwrite").objectStore("item")
     action.getAll().onsuccess = function(event){
         event.target.result.forEach(note => {
